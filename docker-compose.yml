@@ -8,8 +8,8 @@ services:
     ports:
       - ${DB_PORT}:3306
     volumes:
-      - ./db/conf.d:/etc/mysql/conf.d
-      - ./db/data:/var/lib/mysql
+      - ./db-volume/conf.d:/etc/mysql/conf.d
+      - ./db-volume/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: rbgksla

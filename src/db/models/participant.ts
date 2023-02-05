@@ -67,6 +67,7 @@ Participant.init(
     },
   },
   {
+    timestamps: true,
     sequelize: sequelizeConnection,
   }
 );

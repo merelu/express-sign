@@ -1,9 +1,17 @@
+import UserController from "./api/user/user.controllers";
 import App from "./app";
-import dbInit from "./db/init";
+import sequelizeConnection from "./db/config";
 
 async function startServer() {
-  dbInit();
-  const app = new App([]);
+  sequelizeConnection
+    .authenticate()
+    .then(() => {
+      console.log("sequelize connect success");
+    })
+    .catch((e) => {
+      console.log("sequelize not connect");
+    });
+  const app = new App([new UserController()]);
 
   app.listen();
 }

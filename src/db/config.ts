@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { Dialect, Sequelize } from "sequelize";
 
 const dbName = process.env.DB_NAME as string;
@@ -13,5 +14,6 @@ const sequelizeConnection = new Sequelize(dbName, dbUser, dbPassword, {
   dialect: dbDriver,
   logging: true,
 });
+sequelizeConnection.sync({ alter: process.env.NODE_ENV === "development" });
 
 export default sequelizeConnection;

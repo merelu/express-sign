@@ -3,10 +3,14 @@ import { BadRequestException } from "../../common/exceptions";
 import { Controller } from "../../common/interfaces/controller.interface";
 import { Handler, wrap } from "../../lib/request-handler";
 import { SignUpDto, SignUpResponse } from "./dto/signup.dto";
+import { UserRepository } from "./user.repository";
+import { UserService } from "./user.service";
 
 export default class UserController implements Controller {
   path = "/user";
   router = Router();
+
+  userService = new UserService(new UserRepository());
 
   constructor() {
     this.initializeRoutes();
@@ -34,6 +38,12 @@ export default class UserController implements Controller {
     if (!name) {
       throw new BadRequestException("이름은 필수입니다.");
     }
+
+    await this.userService.signUp({
+      email,
+      password,
+      name,
+    });
 
     return true;
   };
